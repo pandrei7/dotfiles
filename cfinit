@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+DIR_NAME=$1
+EXTENSION="cc"
+
+# Use the user-provided extension if it exists.
+if [ $# -gt 1 ]; then
+    EXTENSION=$2
+fi
+
+# The directory holding all the template directories.
+TEMPLATES_DIR=$(dirname $(realpath -s $0))/cfinit-templates
+
+# Create the directory and copy the template.
+if mkdir $DIR_NAME; then
+    cd $DIR_NAME
+    cp $TEMPLATES_DIR/$EXTENSION-template/* .
+fi
