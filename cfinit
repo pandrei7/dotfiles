@@ -9,7 +9,7 @@ if [ $# -gt 1 ]; then
 fi
 
 # The directory holding all the template directories.
-TEMPLATES_DIR=$(dirname $(realpath -s $0))/cfinit-templates
+TEMPLATES_DIR=$(dirname $(realpath $0))/cfinit-templates
 
 # Create the directory and copy the template.
 if mkdir $DIR_NAME; then
