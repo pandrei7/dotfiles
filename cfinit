@@ -10,9 +10,14 @@ fi
 
 # The directory holding all the template directories.
 TEMPLATES_DIR=$(dirname $(realpath $0))/cfinit-templates
+# The selected template directory.
+TEMPLATE=$TEMPLATES_DIR/$EXTENSION-template
 
-# Create the directory and copy the template.
-if mkdir $DIR_NAME; then
-    cd $DIR_NAME
-    cp $TEMPLATES_DIR/$EXTENSION-template/* .
+# Don't override an existing directory.
+if [ -d $DIR_NAME ]; then
+    echo "The directory already exists. Aborting..."
+    exit -1
 fi
+
+# Copy the template.
+cp -r $TEMPLATE $DIR_NAME
