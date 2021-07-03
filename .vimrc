@@ -6,13 +6,15 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'wlangstroth/vim-racket'
 Plug 'dag/vim-fish'
+Plug 'lervag/vimtex'
 " General
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 " Colorschemes
 Plug 'godlygeek/csapprox'
 Plug 'mkarmona/colorsbox'
@@ -43,13 +45,16 @@ nnoremap <C-l> <C-w>l
 " open NERDTree with Ctrl + n
 map <C-n> :NERDTreeToggle<CR>
 
-" open Ctrl-P with Ctrl + p
-let g:ctrl_map = '<c-p>'
+" search files using FZF with Ctrl + P
+nnoremap <C-p> :Files<CR>
 
 " do not use gitgutter by default
 let g:gitgutter_enabled = 0
 " toggle gitgutter easily, using F4
 nnoremap <F4> :GitGutterToggle<CR>
+
+" set Latex flavor for vimtex
+let g:tex_flavor = 'latex'
 
 
 " General settings
@@ -57,12 +62,14 @@ set number relativenumber " enable hybrid line numbers
 set signcolumn=number " display signs in the 'number' column (not in a new one)
 
 set cursorline " highlight the current line
-set colorcolumn=79,99 " guides for line length (rulers)
+set colorcolumn=80,100 " guides for line length (rulers)
 set showmatch " highlight matching parenthesis/bracket
 set hlsearch " highlight matches
 
 set wildmenu " visual autocomplete for command menu
 set lazyredraw " redraw only when needed
+
+set exrc secure " allow using per-project .vimrc files
 
 
 " Whitespace
@@ -73,7 +80,7 @@ set expandtab " tabs are spaces
 
 " make TABs visible
 set list
-set listchars=tab:>-
+set listchars=tab:>-,trail:#,nbsp:·
 
 filetype indent on " load filetype-specific indent files
 
@@ -82,10 +89,11 @@ augroup whitespace_by_language
 
     " insert actual TABs in Makefiles
     autocmd FileType make setlocal noexpandtab
+    " the official Go coding style uses TABs
+    autocmd FileType go setlocal noexpandtab
 
-    " change indentation level for some languages
-    autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType python setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    " change indent size for some languages
+    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 
@@ -115,6 +123,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" use F1 to rename symbols
+nmap <silent> <F1> <Plug>(coc-rename)
 
 " use F2 to format the code
 nnoremap <silent> <F2> :call CocAction('format')<CR>
