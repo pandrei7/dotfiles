@@ -1,2 +1,14 @@
-main: main.cc
-	g++ -Wall -Werror -std=c++11 main.cc -o main -lm
+SRC = main.cc
+EXEC = main
+
+build: $(EXEC)
+
+run: build
+	./$(EXEC)
+
+$(EXEC): $(SRC)
+	g++ -o $@ $^ -Wall -Werror -std=c++17 -lm
+
+.PHONY: clean
+clean:
+	rm -f $(EXEC)
