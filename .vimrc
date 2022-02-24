@@ -7,6 +7,7 @@ Plug 'itchyny/vim-haskell-indent'
 Plug 'wlangstroth/vim-racket'
 Plug 'dag/vim-fish'
 Plug 'lervag/vimtex'
+Plug 'elubow/cql-vim'
 " General
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'scrooloose/nerdtree'
@@ -15,6 +16,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'ryanoasis/vim-devicons'
 " Colorschemes
 Plug 'godlygeek/csapprox'
 Plug 'mkarmona/colorsbox'
@@ -28,6 +31,25 @@ syntax enable " enable syntax processing
 set termguicolors
 set background=dark
 colorscheme colorsbox-stbright
+
+function! ToggleColors()
+    if g:colors_name != "github"
+        set background=light
+        colorscheme github
+        redraw
+        echo "Using a light theme."
+    else
+        set background=dark
+        colorscheme colorsbox-stbright
+        redraw
+        echo "Using a dark theme."
+    endif
+endfunction
+
+" toggle the colorscheme (dark/light) using Leader + C
+nnoremap <silent> <leader>c :call ToggleColors()<CR>
+
+set encoding=UTF-8 " set the encoding for DevIcons
 
 
 " Custom mappings
@@ -71,6 +93,8 @@ set lazyredraw " redraw only when needed
 
 set exrc secure " allow using per-project .vimrc files
 
+set nrformats+=alpha " allow "incrementing/decrementing" letters
+
 
 " Whitespace
 set tabstop=4 " number of visual spaces per TAB
@@ -95,6 +119,21 @@ augroup whitespace_by_language
     " change indent size for some languages
     autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
+
+
+" VimWiki configuration
+set nocompatible
+let g:vimwiki_list = [
+    \{
+        \'path': '~/Documents/VimWiki',
+        \'path_html': '~/Documents/VimWikiHTML',
+        \'syntax': 'markdown',
+        \'ext': '.md',
+    \},
+\]
+let g:vimwiki_url_maxsave = 0
+let g:vimwiki_global_ext = 0
+set autoread
 
 
 " CoC configuration
