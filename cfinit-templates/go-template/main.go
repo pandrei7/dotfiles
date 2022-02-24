@@ -35,6 +35,14 @@ func (s *Scanner) Int64() int64 {
 	return n
 }
 
+func (s *Scanner) Words(count int) []string {
+	words := make([]string, count)
+	for i := range words {
+		words[i] = s.Word()
+	}
+	return words
+}
+
 func (s *Scanner) Ints(count int) []int {
 	ints := make([]int, count)
 	for i := range ints {
