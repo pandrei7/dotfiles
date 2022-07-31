@@ -15,3 +15,6 @@ set -g fish_color_error          'CC241D'
 set -g fish_color_param          '458588'
 set -g fish_color_autosuggestion '665C54'
 set -g fish_color_valid_path
+
+# Take `.profile` into account
+bass source ~/.profile
