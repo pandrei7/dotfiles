@@ -7,30 +7,30 @@ This is a small guide/checklist to help set up new installations.
 1. [Install NodeJS](https://nodejs.dev/learn/how-to-install-nodejs) (this is a
     dependency of CoC).
 
-2. [Install vim-plug](https://github.com/junegunn/vim-plug).
+1. [Install vim-plug](https://github.com/junegunn/vim-plug).
 
-3. Create symlinks for `.vimrc` and `.vim`.
+1. Create symlinks for `.vimrc` and `.vim`.
 
     ```bash
     ln -s FULL_PATH_TO_VIMRC ~/.vimrc
     ln -s FULL_PATH_TO_VIMDIR ~/.vim
     ```
 
-4. Install vim packages `:PlugUpdate`.
+1. Install vim packages `:PlugUpdate`.
 
-5. Install CoC extensions.
+1. Install CoC extensions.
 
 ## fish
 
 1. [Install pure](https://github.com/pure-fish/pure).
 
-2. Symlink `config.fish`.
+1. Symlink `config.fish`.
 
     ```bash
     ln -s FULL_PATH_TO_CONFIG.FISH ~/.config/fish/config.fish
     ```
 
-3. Set up the custom prompt.
+1. Set up the custom prompt.
 
     Symlink `_custom_prompt_time.fish`:
 
@@ -54,5 +54,5 @@ This is a small guide/checklist to help set up new installations.
 
     Modify `~/.profile` like this: `PATH=$PATH:YOUR_DIR`.
 
-2. Symlink all the scripts you want to that directory. For example:
+1. Symlink all the scripts you want to that directory. For example:
     `ln -s FULL_PATH_TO_CFINIT YOUR_DIR/cfinit`.
