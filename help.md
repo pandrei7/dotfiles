@@ -22,10 +22,10 @@ This is a small guide/checklist to help set up new installations.
 
 ## fish
 
-1. [Install pure](https://github.com/pure-fish/pure).
-
 1. [Install Fisher](https://github.com/jorgebucaran/fisher#installation) and
    [Bass](https://github.com/edc/bass#with-fisher).
+
+1. [Install pure](https://github.com/pure-fish/pure).
 
 1. Symlink `config.fish`.
 
