@@ -18,6 +18,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'ryanoasis/vim-devicons'
+Plug 'ap/vim-css-color'
+Plug 'preservim/nerdcommenter'
 " Colorschemes
 Plug 'godlygeek/csapprox'
 Plug 'mkarmona/colorsbox'
@@ -33,9 +35,10 @@ set background=dark
 colorscheme colorsbox-stbright
 
 function! ToggleColors()
-    if g:colors_name != "github"
+    if g:colors_name != "gruvbox"
         set background=light
-        colorscheme github
+        let g:gruvbox_contrast_light="hard"
+        colorscheme gruvbox
         redraw
         echo "Using a light theme."
     else
@@ -101,6 +104,7 @@ set tabstop=4 " number of visual spaces per TAB
 set softtabstop=4 " number of spaces in TAB when editing
 set shiftwidth=4 " number of spaces used when indenting with '>'
 set expandtab " tabs are spaces
+set nojoinspaces " don't insert extra spaces when joining lines
 
 " make TABs visible
 set list
@@ -135,6 +139,22 @@ let g:vimwiki_url_maxsave = 0
 let g:vimwiki_global_ext = 0
 set autoread
 
+" TODO: Decide if this is useful.
+" open Vimwiki with <leader>ww (default setting) and change current directory
+" to the wiki, to allow for fuzzy file searching
+nnoremap <Leader>ww :execute "normal \<Plug>VimwikiIndex"<CR>:lcd %:p:h<CR>
+
+
+" NERD Commenter configuration
+let g:NERDCreateDefaultMappings = 0
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+
+" toggle comments with Ctrl + /
+nmap <C-_> <Plug>NERDCommenterToggle
+vmap <C-_> <Plug>NERDCommenterToggle<CR>
+
 
 " CoC configuration
 " TextEdit might fail if hidden is not set
@@ -145,14 +165,21 @@ set nowritebackup
 " having long updatetime leads to noticeable delays
 set updatetime=300
 
+" use Ctrl + n and Ctrl + p to navigate the completion list
+inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
+inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-n>"
+
 " trigger completion with TAB
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" confirm completion with <CR>
+inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+
+function! CheckBackspace() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -173,9 +200,9 @@ nnoremap <silent> <F2> :call CocAction('format')<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
