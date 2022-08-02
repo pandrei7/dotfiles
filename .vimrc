@@ -167,7 +167,7 @@ set updatetime=300
 
 " use Ctrl + n and Ctrl + p to navigate the completion list
 inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
-inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-n>"
+inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
 
 " trigger completion with TAB
 inoremap <silent><expr> <TAB>
