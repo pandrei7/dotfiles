@@ -26,30 +26,29 @@ vim.keymap.set("n", "<leader>c", vim.cmd.ToggleColorSchemeLightDark, { desc = "T
 
 -- [[ General Settings ]] --
 
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.list = true
-vim.opt.listchars = { tab = ">-", trail = "#", nbsp = "·" }
-vim.opt.number = true
+vim.opt.expandtab      = true
+vim.opt.tabstop        = 4
+vim.opt.softtabstop    = 4
+vim.opt.shiftwidth     = 4
+vim.opt.list           = true
+vim.opt.listchars      = { tab = ">-", trail = "#", nbsp = "·" }
+vim.opt.number         = true
 vim.opt.relativenumber = true
-vim.opt.colorcolumn = { 80, 100, 110 }
-vim.opt.cursorline = true
-vim.opt.signcolumn = "yes:1"
-vim.opt.updatetime = 300
-vim.opt.incsearch = false
-vim.opt.exrc = true
-vim.opt.nrformats = vim.opt.nrformats + "alpha" -- Allow incrementing/decrementing letters.
-vim.opt.showmatch = true
+vim.opt.colorcolumn    = { 80, 100, 110 }
+vim.opt.cursorline     = true
+vim.opt.signcolumn     = "yes:1"
+vim.opt.updatetime     = 300
+vim.opt.incsearch      = false
+vim.opt.exrc           = true
+vim.opt.nrformats      = vim.opt.nrformats + "alpha" -- Allow incrementing/decrementing letters.
+vim.opt.showmatch      = true
+vim.opt.textwidth      = 80                          -- Override the default textwidth for formatting.
+vim.opt.formatoptions:remove({ "t", "c" })           -- Only format with `gq`. Some languages won't obey.
 
 
 -- [[ General Keymaps ]] --
 
 vim.keymap.set("n", "<Space>", vim.cmd.update, { desc = "Make it easy to spam saving the document" })
-
-vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { desc = "Toggle comment on line" })
-vim.api.nvim_set_keymap("v", "<C-_>", "gc", { desc = "Toggle comments in block" })
 
 -- Navigate easily between windows, from all common modes.
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -78,6 +77,10 @@ vim.keymap.set("n", "<F4>", function() vim.cmd("VGit toggle_live_gutter") end, {
 vim.api.nvim_create_user_command("NeotreeToggle", "Neotree toggle=true source=last", { desc = "Toggle NeoTree" })
 vim.keymap.set("n", "<C-n>", vim.cmd.NeotreeToggle, { desc = "Toggle NeoTree" })
 
+-- <C-_> refers to Ctrl-/.
+vim.api.nvim_set_keymap("n", "<C-_>", "gcc", { desc = "Toggle comment on line" })
+vim.api.nvim_set_keymap("v", "<C-_>", "gc", { desc = "Toggle comments in block" })
+
 
 -- [[ LSP ]] --
 
@@ -85,7 +88,7 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to definition of type" })
 vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { desc = "List references" })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "List implementations" })
-vim.keymap.set("n", "<F1>", vim.lsp.buf.rename, { desc = "Rename symbol" })
+vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename symbol" })
 vim.keymap.set("n", "<M-I>", vim.lsp.buf.format, { desc = "Format code" })
 vim.keymap.set("n", "<F12>", vim.lsp.buf.code_action, { desc = "Take a code action" })
 

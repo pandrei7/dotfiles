@@ -2,4 +2,4 @@
 vim.keymap.set("n", "<M-I>", function()
   vim.cmd("PyrightOrganizeImports")
   vim.cmd("Black")
-end)
+end, { buffer = 0 })

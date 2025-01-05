@@ -28,6 +28,7 @@ require("lazy").setup({
     -- [[ General Plugins ]] --
     { "ntpeters/vim-better-whitespace" },
     { "folke/todo-comments.nvim",           dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
+    { "numToStr/Comment.nvim",              opts = {} },
     { "brenoprata10/nvim-highlight-colors", opts = {} },
     { "psf/black" },
     {
@@ -73,7 +74,10 @@ require("lazy").setup({
             },
           }),
           extensions = { fzf = {} },
-          pickers = { colorscheme = { enable_preview = true } },
+          pickers = {
+            colorscheme = { enable_preview = true },
+            find_files = { follow = true },
+          },
         })
         require("telescope").load_extension("fzf")
       end,
@@ -152,6 +156,8 @@ require("lazy").setup({
         local capabilities = require("blink.cmp").get_lsp_capabilities()
         lspconfig.basedpyright.setup({ capabilities = capabilities })
         lspconfig.lua_ls.setup({ capabilities = capabilities })
+        lspconfig.clangd.setup({ capabilities = capabilities })
+        lspconfig.remark_ls.setup({ capabilities = capabilities, settings = { remark = { requireConfig = false } } })
       end,
     },
     {
@@ -180,13 +186,13 @@ require("lazy").setup({
         },
         keymap = {
           preset = "default",
-          ["<Esc>"] = {
-            function(cmp)
-              cmp.hide()
-              vim.cmd.stopinsert()
-              return true
-            end,
-          },
+          -- ["<Esc>"] = { -- TODO: Decide if this is necessary (also similar for <C-c>).
+          --   function(cmp)
+          --     cmp.hide()
+          --     vim.cmd.stopinsert()
+          --     return true
+          --   end,
+          -- },
           ["<C-c>"] = { "hide", "fallback" },
           ["<Tab>"] = {
             -- Tab will show completions, advance completions, or insert a <Tab> character "intelligently".
