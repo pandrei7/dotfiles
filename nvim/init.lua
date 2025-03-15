@@ -7,17 +7,33 @@ require("config.lazy")
 
 vim.g.preferred_colorscheme_dark = "material-deep-ocean"
 vim.g.preferred_colorscheme_light = "vscode"
-vim.opt.background = "dark"
-vim.cmd.colorscheme(vim.g.preferred_colorscheme_dark)
+
+local function set_light_colorscheme()
+  vim.cmd.colorscheme(vim.g.preferred_colorscheme_light)
+  vim.opt.background = "light"
+end
+local function set_dark_colorscheme()
+  vim.cmd.colorscheme(vim.g.preferred_colorscheme_dark)
+  vim.opt.background = "dark"
+end
+
+-- Synchronize the startup colorscheme with the current time of day.
+(function()
+  local daylight_start = "07:30"
+  local daylight_end   = "17:30"
+  local now            = os.date("%H:%M")
+  if daylight_start <= now and now <= daylight_end then
+    set_light_colorscheme()
+  else
+    set_dark_colorscheme()
+  end
+end)()
 
 vim.api.nvim_create_user_command("ToggleColorSchemeLightDark", function()
-  ---@diagnostic disable-next-line: undefined-field
-  if vim.opt.background:get() ~= "dark" then
-    vim.cmd.colorscheme(vim.g.preferred_colorscheme_dark)
-    vim.opt.background = "dark"
+  if vim.opt.background:get() ~= "dark" then ---@diagnostic disable-line: undefined-field
+    set_dark_colorscheme()
   else
-    vim.cmd.colorscheme(vim.g.preferred_colorscheme_light)
-    vim.opt.background = "light"
+    set_light_colorscheme()
   end
 end, { desc = "Switch between the preferred light and dark color schemes." })
 
