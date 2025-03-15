@@ -154,10 +154,11 @@ require("lazy").setup({
       config = function()
         local lspconfig = require("lspconfig")
         local capabilities = require("blink.cmp").get_lsp_capabilities()
-        lspconfig.basedpyright.setup({ capabilities = capabilities })
+        lspconfig.pyright.setup({ capabilities = capabilities })
         lspconfig.lua_ls.setup({ capabilities = capabilities })
         lspconfig.clangd.setup({ capabilities = capabilities })
         lspconfig.remark_ls.setup({ capabilities = capabilities, settings = { remark = { requireConfig = false } } })
+        lspconfig.racket_langserver.setup({ capabilities = capabilities })
       end,
     },
     {
