@@ -173,8 +173,7 @@ require("lazy").setup({
     {
       "Saghen/blink.cmp",
       dependencies = "rafamadriz/friendly-snippets",
-      version = "v0.8.2", --There might be a problem with v0.9 and VGit, NeoTree etc.
-      -- version = "*", -- TODO: Switch to latest version eventually.
+      version = "*",
       ---@module 'blink.cmp'
       ---@type blink.cmp.Config
       opts = {
@@ -182,18 +181,14 @@ require("lazy").setup({
           default = { "lazydev", "lsp", "path", "snippets", "buffer" },
           providers = {
             lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+            -- TODO: See if these turn out to be useful. Show snippets less often; change path completion.
+            snippets = { should_show_items = function(ctx) return ctx.trigger.initial_kind ~= "trigger_character" end },
+            path = { opts = { get_cwd = function(_) return vim.fn.getcwd() end } },
           },
         },
         keymap = {
           preset = "default",
-          -- ["<Esc>"] = { -- TODO: Decide if this is necessary (also similar for <C-c>).
-          --   function(cmp)
-          --     cmp.hide()
-          --     vim.cmd.stopinsert()
-          --     return true
-          --   end,
-          -- },
-          ["<C-c>"] = { "hide", "fallback" },
+          ["<C-c>"] = { "cancel", "hide", "fallback" },
           ["<Tab>"] = {
             -- Tab will show completions, advance completions, or insert a <Tab> character "intelligently".
             function(cmp)
@@ -217,8 +212,13 @@ require("lazy").setup({
           },
           ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
           ["<Enter>"] = { "accept", "snippet_forward", "fallback" },
-
-          cmdline = {
+        },
+        cmdline = {
+          completion = {
+            menu = { auto_show = true },
+            list = { selection = { preselect = false, auto_insert = true } },
+          },
+          keymap = {
             ["<Tab>"] = { "select_next", "fallback" },
             ["<S-Tab>"] = { "select_prev", "fallback" },
             ["<C-n>"] = { "select_next", "fallback" },
@@ -228,11 +228,12 @@ require("lazy").setup({
         appearance = { use_nvim_cmp_as_default = true },
         signature = { enabled = true },
         completion = {
-          list = { selection = "auto_insert" },
+          list = { selection = { preselect = false, auto_insert = true } },
           menu = {
             auto_show = true,
             draw = {
               columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 }, { "source_name" }, },
+              treesitter = { "lsp" },
             },
           },
           documentation = { auto_show = true, auto_show_delay_ms = 500 },
