@@ -62,6 +62,11 @@ vim.opt.textwidth      = 80                          -- Override the default tex
 vim.opt.formatoptions:remove({ "t", "c" })           -- Only format with `gq`. Some languages won't obey.
 
 
+-- [[ Custom Filetypes ]] --
+
+vim.filetype.add({ extension = { dvc = "yaml" }, filename = { Dvcfile = "yaml", ["dvc.lock"] = "yaml" } })
+
+
 -- [[ General Keymaps ]] --
 
 vim.keymap.set("n", "<Space>", vim.cmd.update, { desc = "Make it easy to spam saving the document" })
