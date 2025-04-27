@@ -163,6 +163,8 @@ require("lazy").setup({
         lspconfig.clangd.setup({ capabilities = capabilities })
         lspconfig.remark_ls.setup({ capabilities = capabilities, settings = { remark = { requireConfig = false } } })
         lspconfig.racket_langserver.setup({ capabilities = capabilities })
+        lspconfig.yamlls.setup({ capabilities = capabilities, settings = { yaml = { format = { enable = true } } } })
+        lspconfig.hls.setup({ capabilities = capabilities, filetypes = { "haskell", "lhaskell", "cabal" } })
       end,
     },
     {
