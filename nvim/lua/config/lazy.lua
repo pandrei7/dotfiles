@@ -25,12 +25,16 @@ require("lazy").setup({
     { "zenbones-theme/zenbones.nvim",       dependencies = "rktjmp/lush.nvim",          priority = 1000 },
     { "gmr458/cold.nvim",                   priority = 1000 },
 
+    -- [[ Language Specific ]] --
+    { "rbberger/vim-singularity-syntax" },
+    { "brentyi/isort.vim" },
+    { "psf/black" },
+
     -- [[ General Plugins ]] --
     { "ntpeters/vim-better-whitespace" },
     { "folke/todo-comments.nvim",           dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
     { "numToStr/Comment.nvim",              opts = {} },
     { "brenoprata10/nvim-highlight-colors", opts = {} },
-    { "psf/black" },
     {
       "utilyre/barbecue.nvim",
       name = "barbecue",
