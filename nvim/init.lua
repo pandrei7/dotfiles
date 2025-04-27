@@ -64,7 +64,16 @@ vim.opt.formatoptions:remove({ "t", "c" })           -- Only format with `gq`. S
 
 -- [[ Custom Filetypes ]] --
 
+-- ANTLR
+vim.filetype.add({ extension = { g = "antlr3", g4 = "antlr4" } })
+-- Cool
+vim.filetype.add({ extension = { cl = "cool" } })
+-- DVC
 vim.filetype.add({ extension = { dvc = "yaml" }, filename = { Dvcfile = "yaml", ["dvc.lock"] = "yaml" } })
+-- IA64
+vim.filetype.add({ extension = { asm = "ia64" } })
+-- StringTemplate
+vim.filetype.add({ extension = { st = "stringtemplate", stg = "stringtemplate", sti = "stringtemplate" } })
 
 
 -- [[ General Keymaps ]] --
