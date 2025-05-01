@@ -153,7 +153,10 @@ require("lazy").setup({
     {
       "hedyhli/outline.nvim",
       config = function()
-        require("outline").setup({})
+        require("outline").setup({
+          outline_window = { show_numbers = true, focus_on_open = false },
+          preview_window = { auto_preview = true }
+        })
       end,
     },
 
