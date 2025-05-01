@@ -150,6 +150,12 @@ require("lazy").setup({
         })
       end,
     },
+    {
+      "hedyhli/outline.nvim",
+      config = function()
+        require("outline").setup({})
+      end,
+    },
 
     -- [[ LSP and Autocompletion ]] --
     {
