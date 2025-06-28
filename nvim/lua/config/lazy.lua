@@ -173,6 +173,7 @@ require("lazy").setup({
         vim.lsp.config("yamlls", { settings = { yaml = { format = { enable = true } } } })
         vim.lsp.config("hls", { filetypes = { "haskell", "lhaskell", "cabal" } })
         vim.lsp.enable("jdtls")
+        vim.lsp.enable("taplo")
       end,
     },
     {
