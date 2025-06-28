@@ -20,7 +20,7 @@ end
 -- Synchronize the startup colorscheme with the current time of day.
 (function()
   local daylight_start = "07:30"
-  local daylight_end   = "17:30"
+  local daylight_end   = "19:50"
   local now            = os.date("%H:%M")
   if daylight_start <= now and now <= daylight_end then
     set_light_colorscheme()
