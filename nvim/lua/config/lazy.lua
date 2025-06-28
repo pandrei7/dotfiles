@@ -174,6 +174,7 @@ require("lazy").setup({
         lspconfig.racket_langserver.setup({ capabilities = capabilities })
         lspconfig.yamlls.setup({ capabilities = capabilities, settings = { yaml = { format = { enable = true } } } })
         lspconfig.hls.setup({ capabilities = capabilities, filetypes = { "haskell", "lhaskell", "cabal" } })
+        lspconfig.jdtls.setup({ capabilities = capabilities })
       end,
     },
     {
