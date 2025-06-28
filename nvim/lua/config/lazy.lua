@@ -165,16 +165,14 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
       dependencies = { "Saghen/blink.cmp", "folke/lazydev.nvim" },
       config = function()
-        local lspconfig = require("lspconfig")
-        local capabilities = require("blink.cmp").get_lsp_capabilities()
-        lspconfig.pyright.setup({ capabilities = capabilities })
-        lspconfig.lua_ls.setup({ capabilities = capabilities })
-        lspconfig.clangd.setup({ capabilities = capabilities })
-        lspconfig.remark_ls.setup({ capabilities = capabilities, settings = { remark = { requireConfig = false } } })
-        lspconfig.racket_langserver.setup({ capabilities = capabilities })
-        lspconfig.yamlls.setup({ capabilities = capabilities, settings = { yaml = { format = { enable = true } } } })
-        lspconfig.hls.setup({ capabilities = capabilities, filetypes = { "haskell", "lhaskell", "cabal" } })
-        lspconfig.jdtls.setup({ capabilities = capabilities })
+        vim.lsp.enable("pyright")
+        vim.lsp.enable("lua_ls")
+        vim.lsp.enable("clangd")
+        vim.lsp.config("remark_ls.setup", { settings = { remark = { requireConfig = false } } })
+        vim.lsp.enable("racket_langserver")
+        vim.lsp.config("yamlls", { settings = { yaml = { format = { enable = true } } } })
+        vim.lsp.config("hls", { filetypes = { "haskell", "lhaskell", "cabal" } })
+        vim.lsp.enable("jdtls")
       end,
     },
     {
