@@ -165,15 +165,21 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
       dependencies = { "Saghen/blink.cmp", "folke/lazydev.nvim" },
       config = function()
-        vim.lsp.enable("pyright")
-        vim.lsp.enable("lua_ls")
         vim.lsp.enable("clangd")
-        vim.lsp.config("remark_ls.setup", { settings = { remark = { requireConfig = false } } })
-        vim.lsp.enable("racket_langserver")
-        vim.lsp.config("yamlls", { settings = { yaml = { format = { enable = true } } } })
-        vim.lsp.config("hls", { filetypes = { "haskell", "lhaskell", "cabal" } })
         vim.lsp.enable("jdtls")
+        vim.lsp.enable("lua_ls")
+        vim.lsp.enable("pyright")
+        vim.lsp.enable("racket_langserver")
         vim.lsp.enable("taplo")
+
+        vim.lsp.enable("hls")
+        vim.lsp.config("hls", { filetypes = { "haskell", "lhaskell", "cabal" } })
+
+        vim.lsp.enable("remark_ls")
+        vim.lsp.config("remark_ls.setup", { settings = { remark = { requireConfig = false } } })
+
+        vim.lsp.enable("yamlls")
+        vim.lsp.config("yamlls", { settings = { yaml = { format = { enable = true } } } })
       end,
     },
     {
