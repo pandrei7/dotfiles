@@ -176,7 +176,7 @@ require("lazy").setup({
         vim.lsp.config("hls", { filetypes = { "haskell", "lhaskell", "cabal" } })
 
         vim.lsp.enable("remark_ls")
-        vim.lsp.config("remark_ls.setup", { settings = { remark = { requireConfig = false } } })
+        vim.lsp.config("remark_ls", { settings = { remark = { requireConfig = false } } })
 
         vim.lsp.enable("yamlls")
         vim.lsp.config("yamlls", { settings = { yaml = { format = { enable = true } } } })
