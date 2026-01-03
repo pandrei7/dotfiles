@@ -8,24 +8,42 @@ Plug 'wlangstroth/vim-racket'
 Plug 'dag/vim-fish'
 Plug 'lervag/vimtex'
 Plug 'elubow/cql-vim'
+Plug 'Raimondi/vim-io'
+Plug 'kaarmu/typst.vim'
+Plug 'rbberger/vim-singularity-syntax'
+Plug 'fisadev/vim-isort'
 " General
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ap/vim-css-color'
 Plug 'preservim/nerdcommenter'
+Plug 'junegunn/goyo.vim'
 " Colorschemes
 Plug 'godlygeek/csapprox'
 Plug 'mkarmona/colorsbox'
 Plug 'morhetz/gruvbox'
 Plug 'cormacrelf/vim-colors-github'
+Plug 'arzg/vim-colors-xcode'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'https://git.sr.ht/~ackyshake/spacegray.vim'
+Plug 'sainnhe/edge'
 call plug#end()
+
+set mouse=a
+
+nnoremap <silent> <C-[><TAB> :call CocAction('format')<CR>
+" TODO: Rename and move and maybe remove even.
+augroup language_keybinds
+    autocmd!
+    autocmd FileType python nnoremap <silent> <buffer> <C-[><TAB> :call CocAction('format')<CR>:Isort<CR>
+augroup END
 
 
 " Theme and syntax
@@ -171,13 +189,15 @@ inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
 
 " trigger completion with TAB
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
+      \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " confirm completion with <CR>
-inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+" inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
     let col = col('.') - 1
@@ -196,10 +216,14 @@ nmap <silent> <F1> <Plug>(coc-rename)
 " use F2 to format the code
 nnoremap <silent> <F2> :call CocAction('format')<CR>
 
-" use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" use F12 to perform a code action
+nmap <silent> <F12> <Plug>(coc-codeaction)
 
-function! s:show_documentation()
+" use K to show documentation in preview window
+" I changed this to fix remap-restoration when exiting Termdebug.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
     else
