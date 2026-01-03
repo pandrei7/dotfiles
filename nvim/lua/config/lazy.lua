@@ -171,15 +171,22 @@ require("lazy").setup({
         vim.lsp.enable("pyright")
         vim.lsp.enable("racket_langserver")
         vim.lsp.enable("taplo")
+        vim.lsp.enable("ocamllsp")
 
-        vim.lsp.enable("hls")
+        vim.lsp.enable("jsonls")
+        vim.lsp.enable("html")
+        vim.lsp.enable("cssls")
+        vim.lsp.enable("vtsls")
+
+
         vim.lsp.config("hls", { filetypes = { "haskell", "lhaskell", "cabal" } })
+        vim.lsp.enable("hls")
 
-        vim.lsp.enable("remark_ls")
         vim.lsp.config("remark_ls", { settings = { remark = { requireConfig = false } } })
+        vim.lsp.enable("remark_ls")
 
-        vim.lsp.enable("yamlls")
         vim.lsp.config("yamlls", { settings = { yaml = { format = { enable = true } } } })
+        vim.lsp.enable("yamlls")
       end,
     },
     {
