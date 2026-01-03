@@ -7,7 +7,7 @@ run: build
 	./$(EXEC)
 
 $(EXEC): $(SRC)
-	g++ -o $@ $^ -Wall -Werror -std=c++17 -lm
+	g++ -o $@ $^ -Wall -Werror -std=c++17 -lm -g
 
 .PHONY: clean
 clean:

@@ -44,10 +44,7 @@ impl TokenReader {
         let mut line = String::new();
         self.reader.read_line(&mut line).unwrap();
 
-        self.tokens = line
-            .split_whitespace()
-            .map(String::from)
-            .collect();
+        self.tokens = line.split_whitespace().map(String::from).collect();
         self.index = 0;
     }
 }
